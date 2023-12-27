@@ -8,6 +8,7 @@
 */
 /* rs-theme-name: KISS - OZBEKER */
 /* rs-theme-is-dark: TRUE */
+
 :root {
   /* syntax highlights */
   --kiss-bracket: #d4d4d4;
