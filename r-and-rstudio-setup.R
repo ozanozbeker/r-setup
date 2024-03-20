@@ -2,6 +2,7 @@
 # Author: Ozan Ozbeker
 
 # Packages ----
+# CRAN Package Info Page: https://cran.r-project.org/web/packages/[package_name]/index.html
 # These are the packages I use frequently, loosely grouped into the categories below:
 install.packages(c(
   # Meta Packages
@@ -9,67 +10,81 @@ install.packages(c(
   'tidymodels', # Easily Install and Load the "Tidymodels" packages | https://tidymodels.tidymodels.org/
   
   # Programming & Development
+  'purrr',    # Functional Programming Tools | https://purrr.tidyverse.org/
+  'forcats',  # Tools for Working with Categorical Variables (Factors) | https://forcats.tidyverse.org/
   'devtools', # Tools to Make Developing R Packages Easier | https://devtools.r-lib.org/
   'usethis',  # Automate Package and Project Setup | https://usethis.r-lib.org/
   'keyring',  # Package for accessing OS's credential store | https://keyring.r-lib.org/
-  'fs'        # Provides functions to manage files & directories using tidy principles like tibbles, tidy-paths, etc.
+  'fs',       # Cross-Platform File System Operations Based on 'libuv' | https://fs.r-lib.org/
 
   # Import
-
+  'readr',    # Read Rectangular Data | https://readr.tidyverse.org/
+  'httr2',    # Perform HTTP Requests and Process the Responses | https://httr2.r-lib.org/
+  'readxl',   # Read Excel Files | https://readxl.tidyverse.org/
+  'rvest',    # Easily Harvest (Scrape) Wep Pages | https://rvest.tidyverse.org/
+  'jsonlite', # A Simple and Robust JSON Parser and Generator for R | https://jeroen.r-universe.dev/jsonlite
+  
   # Tidy/Transform
+  'dplyr',     # A Grammar of Data Manipulation | https://dplyr.tidyverse.org/
+  'tidyr',     # Tidy Messy Data | https://tidyr.tidyverse.org/
+  'tibble',    # Simple Data Frames | https://tibble.tidyverse.org/
+  'stringr',   # Simple, Consistent Wrappers for Common String Operations | https://stringr.tidyverse.org/
+  'lubridate', # Make Dealing with Dates a Little Easier | https://lubridate.tidyverse.org/
+  'janitor',   # Simple Tools for Examining and Cleaning Dirty Data | https://sfirke.github.io/janitor/index.html 
 
   # Visualize
-
+  'ggplot2', # Create Elegant Data Visualisations Using the Grammar of Graphics | https://ggplot2.tidyverse.org/
+  
   # Model
-
+  'rsample',   # General Re-sampling Infrastructure | https://rsample.tidymodels.org/
+  'parsnip',   # A Common API to Modeling and Analysis Functions | https://parsnip.tidymodels.org/
+  'recipes',   # Pre-processing and Feature Engineering Steps for Modeling | https://recipes.tidymodels.org/
+  'workflows', # Modeling Workflows | https://workflows.tidymodels.org/
+  'tune',      # Tidy Tuning Tools | https://tune.tidymodels.org/
+  'yardstick', # Tidy Characterizations of Model Performance | https://yardstick.tidymodels.org/
+  'broom',     # Convert Statistical Objects into Tidy Tibbles | https://broom.tidymodels.org/
+  'dials',     # Tools for Creating Tuning Parameter Values | https://dials.tidymodels.org/
+  'infer',     # Tidy Statistical Inference | https://infer.tidymodels.org/
+  'corrr',     # Correlations in R | https://corrr.tidymodels.org/
+  
   # Communicate
 
   # Database
+  'DBI',     # R Database Interface | https://dbi.r-dbi.org/index.html
+  'odbc',    # Connect to ODBC Compatible Databases (using the {DBI} Interface) | https://odbc.r-dbi.org/
+  'dbplyr',  # A {dplyr} Back End for Databases | https://dbplyr.tidyverse.org/
+  'duckdb',  # {DBI} Package for the DuckDB Database Management System | https://r.duckdb.org/
+  'duckplyr' # A DuckDB-backed Version of {dplyr} | https://duckdblabs.github.io/duckplyr/
   
   # Fun
   
 ))
 
 # Other packages I'm interested in:
-# 'targets'   # Pipelining Tools in R | https://docs.ropensci.org/targets/
+# 'targets'  # Pipelining Tools in R | https://docs.ropensci.org/targets/
+# 'testthat' # Unit Testing for R | https://testthat.r-lib.org
+# 'zoo'      # S3 Infrastructure for Regular and Irregular Time Series (Z's Ordered Observations) | https://zoo.R-Forge.R-project.org/
 
 # RStudio IDE Config ----
-# Turns the IDE black:
+# Activate "Real" Darkmode:
 devtools::install_github('rileytwo/darkstudio')
-darkstudio::activate() # Must be running with admin privileges, Run & restart RStudio
+darkstudio::activate() # Must be running with admin privileges. Restart RStudio for it to take effect.
 
-# Copy my favorite theme into the theme folder
-fs::file_copy(
-  path = 'KISS - OZBEKER.rstheme',
-  new_path = stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/themes/KISS - OZBEKER.rstheme"),
-  overwrite = TRUE
+# Create RStudio Directories
+purrr::walk(
+  .x = c('themes', 'keybindings', 'snippets'),
+  .f = \(directory) stringr::str_c("C:/Users/", {Sys.info()[['user']]}, "/AppData/Roaming/RStudio/", directory) |> fs::dir_create()
 )
 
-# Apply my preferred keybindings
-fs::file_copy(
-  path = 'rstudio_bindings.json',
-  new_path = stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/keybindings/rstudio_bindings.json"),
-  overwrite = TRUE
+# Copy Files
+purrr::pwalk(
+  .x = tibble::tribble(
+    ~ file,                   ~ destination,
+    'rstudio_bindings.json',  stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/keybindings/rstudio_bindings.json"),
+    'KISS - OZBEKER.rstheme', stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/themes/KISS - OZBEKER.rstheme"),
+    'r.snippets',             stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/snippets/r.snippets"),
+    'rstudio-prefs.json',     stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/rstudio-prefs.json"),
+    '.Rprofile',              stringr::str_glue("C:/Users/{Sys.info()[['user']]}/Documents/.Rprofile")
+  ),
+  .f = \(file, destination) fs::file_copy(path = file, new_path = destination, overwrite = TRUE)
 )
-
-# Apply my preferred RStudio Settings
-fs::file_copy(
-  path = 'rstudio-prefs.json', 
-  new_path = stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/rstudio-prefs.json"), 
-  overwrite = TRUE
-)
-
-# Apply my preferred R Snippets
-fs::file_copy(
-  path = 'r.snippets', 
-  new_path = stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/snippets/r.snippets"), 
-  overwrite = TRUE
-)
-
-# Apply my preferred .Rprofile config
-fs::file_copy(
-  path = '.Rprofile', 
-  new_path = stringr::str_glue("C:/Users/{Sys.info()[['user']]}/Documents/.Rprofile"), 
-  overwrite = TRUE
-)
-
