@@ -76,6 +76,6 @@
     "soft_wrap_r_files": true,
     "focus_console_after_exec": true,
     "margin_column": 160,
-    "warn_if_no_such_variable_in_scope": true,
+    "warn_if_no_such_variable_in_scope": false,
     "auto_expand_error_tracebacks": true
 }
