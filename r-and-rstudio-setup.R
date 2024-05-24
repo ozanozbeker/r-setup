@@ -21,7 +21,7 @@ install.packages(c(
   'readr',    # Read Rectangular Data | https://readr.tidyverse.org/
   'httr2',    # Perform HTTP Requests and Process the Responses | https://httr2.r-lib.org/
   'readxl',   # Read Excel Files | https://readxl.tidyverse.org/
-  'rvest',    # Easily Harvest (Scrape) Wep Pages | https://rvest.tidyverse.org/
+  'rvest',    # Easily Harvest (Scrape) Web Pages | https://rvest.tidyverse.org/
   'jsonlite', # A Simple and Robust JSON Parser and Generator for R | https://jeroen.r-universe.dev/jsonlite
   
   # Tidy/Transform
@@ -78,7 +78,7 @@ purrr::walk(
 
 # Copy Files
 purrr::pwalk(
-  .x = tibble::tribble(
+  .l = tibble::tribble(
     ~ file,                   ~ destination,
     'rstudio_bindings.json',  stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/keybindings/rstudio_bindings.json"),
     'KISS - OZBEKER.rstheme', stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/themes/KISS - OZBEKER.rstheme"),
