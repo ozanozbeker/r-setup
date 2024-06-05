@@ -79,7 +79,7 @@ purrr::walk(
 # Copy Files
 purrr::pwalk(
   .l = tibble::tribble(
-    ~ file,                   ~ destination,
+    ~file,                   ~destination,
     'rstudio_bindings.json',  stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/keybindings/rstudio_bindings.json"),
     'KISS - OZBEKER.rstheme', stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/themes/KISS - OZBEKER.rstheme"),
     'r.snippets',             stringr::str_glue("C:/Users/{Sys.info()[['user']]}/AppData/Roaming/RStudio/snippets/r.snippets"),
