@@ -14,7 +14,7 @@ options(
 
 # R Completion Options ----
 # `ipck`, `func`, & `fuzzy` are turned off and the rest are turned on by default.
-rc.settings(
+utils::rc.settings(
   ipck = TRUE, 
   func = TRUE, 
   fuzzy = TRUE
