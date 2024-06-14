@@ -11,12 +11,7 @@ options(
   warnPartialMatchAttr = TRUE,   # Warns if partial matching is used in extracting attributes via attr.
   warnPartialMatchDollar = TRUE, # Warns if partial matching is used for extraction by $.
   prompt = 'R> ',                # This is complete personal preference
-  continue = '+> ',              # This is complete personal preference
-
-  # Usethis
-  usethis.full_name = 'Ozan Ozbeker',
-  usethis.protocol = 'https',
-  usethis.destdir = 'C:/Users/OzanO/Code'
+  continue = '+> '               # This is complete personal preference
 )
 
 # R Completion Options ----
