@@ -21,5 +21,5 @@ utils::rc.settings(ipck = TRUE, func = TRUE, fuzzy = TRUE)
 # Interactive Code ----
 # Use this code section if you want things to enable in an interactive session, like auto-loading certain packages
 if (interactive()) {
-  "Welcome Ozan, the greatest data scientist to ever live."
+  message("Welcome Mr. Ozbeker, how may I be of assistance?")
 }
