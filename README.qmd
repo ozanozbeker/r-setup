@@ -1,18 +1,33 @@
 ---
-title: "R & RStudio Setup"
-author: "Ozan Ozbeker"
+title: "My R & RStudio Setup"
+description: "The code and the 'why' behind my setup, as well as some shoutouts."
+date: "2024-06-13"
+categories: ["R", "RStudio", "Workstation", "Living Post"]
+image: ../resources/images/rstudio_logo.png
 execute: 
   eval: false
-format: gfm
+  cache: false
+format:
+  html: 
+    code-links:
+      - text: "Repo"
+        icon: github
+        href: https://github.com/ozanozbeker/r-and-rstudio-setup
+  gfm: # This is for the GitHub README
+    toc: true
 ---
 
 # Intro
 
-This is a hybrid blog post/README/code file where it is the actual code file I use when I update my R environment/computer, but also I wrote some descriptions along the way so if somebody else stumbles upon this and likes what they see, they can copy it or maybe even find something new that they didn't know about before.
+This is a hybrid blog post/README/code file where it is the actual code file I use when I update my R environment/computer, but also I wrote some descriptions along the way so if somebody else stumbles upon this and likes what they see, they can copy it or maybe even find something new that they didn't know about before. The link to my GitHub repo is on the right panel. Feel free to fork and customize it for your use!
 
-# r-rstudio-setup.qmd
+::: callout-note
+This is what I'm going to call a "Living Post", where it's living in the sense that I plan on updating it over time, and just republish instead of creating a new one.
+:::
 
-First, we begin with this Quarto file that applies everything below. As I write this, it feels a little 4th wall breaking, but hey that's life 😎
+# r-and-rstudio-setup.R
+
+First, we begin with the R file that makes everything after it possible.
 
 ## Packages
 
@@ -20,7 +35,7 @@ These are the packages I most frequently use, loosely grouped into the categorie
 
 You can find the info page for each package at `https://cran.r-project.org/web/packages/[package_name]/index.html` where `[package_name]` is the name of the package.
 
-```{r filename="r-and-rstudio-setup.qmd"}
+```{r filename="r-and-rstudio-setup.R"}
 #| label: install-packages
 
 install.packages(c(
@@ -33,6 +48,7 @@ install.packages(c(
   'forcats',  # Tools for Working with Categorical Variables (Factors) | https://forcats.tidyverse.org/
   'keyring',  # Package for accessing OS's credential store | https://keyring.r-lib.org/
   'fs',       # Cross-Platform File System Operations Based on 'libuv' | https://fs.r-lib.org/
+  'renv',     # Project Environments | https://rstudio.github.io/renv/index.html
 
   # Import
   'readr',    # Read Rectangular Data | https://readr.tidyverse.org/
@@ -50,7 +66,9 @@ install.packages(c(
   'janitor',   # Simple Tools for Examining and Cleaning Dirty Data | https://sfirke.github.io/janitor/index.html 
 
   # Visualize
-  'ggplot2', # Create Elegant Data Visualizations Using the Grammar of Graphics | https://ggplot2.tidyverse.org/
+  'ggplot2',   # Create Elegant Data Visualizations Using the Grammar of Graphics | https://ggplot2.tidyverse.org/
+  'gt',        # Easily Create Presentation-Ready Display Tables | https://gt.rstudio.com/
+  'skimr',     # Compart and Flexible Summaries of Data | https://docs.ropensci.org/skimr/
   
   # Model
   'rsample',   # General Re-sampling Infrastructure | https://rsample.tidymodels.org/
@@ -75,6 +93,13 @@ install.packages(c(
   'duckplyr' # A DuckDB-backed Version of {dplyr} | https://duckdblabs.github.io/duckplyr/
 ))
 
+install.packages(
+  "rsthemes",
+  repos = c(gadenbuie = 'https://gadenbuie.r-universe.dev', getOption("repos"))
+)
+
+rsthemes::install_rsthemes()
+
 # Other packages I'm interested in:
 # 'profvis'  # Interactive Visualizations for Profiling R Code | https://rstudio.github.io/profvis/
 # 'targets'  # Pipelining Tools in R | https://docs.ropensci.org/targets/
@@ -88,11 +113,11 @@ After these are installed, close and open RStudio again so that the addins from 
 
 ## RStudio Configuration
 
-As I've been using R & RStudio, I've learned which settings I like the most, whether they are RStudio settings or R options, as well as some custom snippets. This section of code takes the respective files and copies them to where the base files for R and RStudioa are. I really created this because of my job where we log into different virtual machines, and I got sick of resetting all of these options by hand, so now I just pull this repo from GitHub and run the code.
+As I've been using R & RStudio, I've learned which custom settings I like the most. This section of code takes the respective files and copies them to where the base files for R and RStudio are. I created this repo because of my job where we log into different virtual machines. I got sick of resetting all of these options by hand, so now I just pull this repo from GitHub and run the code.
 
 The directories don't exist by default, they are created when you manually change the respective settings, so this chunk takes care of that, especially if it's a fresh install of RStudio.
 
-```{r filename="r-and-rstudio-setup.qmd"}
+```{r filename="r-and-rstudio-setup.R"}
 #| label: create-rstudio-directories
 
 purrr::walk(
@@ -103,7 +128,7 @@ purrr::walk(
 
 Then we copy the files from this folder to their appropriate locations.
 
-```{r filename="r-and-rstudio-setup.qmd"}
+```{r filename="r-and-rstudio-setup.R"}
 #| label: copy-files
 
 purrr::pwalk(
@@ -126,36 +151,39 @@ I hate that when you use dark mode in RStudio, it's just this dark blue shade fo
 
 This package comes with a bunch of awesome themes that complete change the way RStudio looks and feels, and I would recommend it to anybody looking to modernize their RStudio interface. You can see the usage in the docs, and the settings I'm using in my `.Rprofile`, which I talk about below.
 
-```{r filename="r-and-rstudio-setup.qmd"}
-#| label: install-rthemes
-
-install.packages(
-  "rsthemes",
-  repos = c(gadenbuie = 'https://gadenbuie.r-universe.dev', getOption("repos"))
-)
-```
+Right now, I really like the `Elm light` and `Elm dark` themes, and I switch between the two depending on the brightness of the room.
 
 ### {darkstudio}
 
-I'm now using the {rsthemes} package, but I have to give a huge shoutout to GitHub user [rileytwo](https://github.com/rileytwo). I used rileytwo's work below for more than a year, and I can't not shout them out.
+I'm now using the {rsthemes} package, but I have to give a huge shoutout to GitHub user [rileytwo](https://github.com/rileytwo). I used rileytwo's work below for more than a year, and I can't not shout it out.
 
 -   [{darkstudio}](https://github.com/rileytwo/darkstudio) is a package that turns the IDE elements to shades of black whenever you are using a theme with `rs-theme-is-dark: TRUE`.
 -   [Kiss: Keep It Stupid Simple](https://github.com/rileytwo/kiss) is a theme from Riley that just looks so good, it's been my go to for over a year now.
 
-If either of these interest you, please go check them out as they have been the staple to my R experience and I like to support the creator as best as I can.
+If either of these interest you, please go check them out. They were a staple to my R experience and I would like to support the creator as best as I can.
 
-```{r filename="r-and-rstudio-setup.qmd"}
+```{r}
 #| label: activate-dark-studio
 
 devtools::install_github('rileytwo/darkstudio')
 darkstudio::activate() # This requires admin privileges
 ```
 
-# .Rprofile
+# Settings Files
+
+All of the settings for R & RStudio that I customized are controlled with the following files:
+
+-  .Rprofile
+-  r.snippets
+-  rstudio_bindings.json
+-  addins.json
+-  rstudio-prefs.json
+
+## .Rprofile
 
 The `.Rprofile` file is an R script that runs each time R starts up that lets you to customize your R environment. It can be used to set global options, load packages, define functions, and customize the R startup process. Or in my case, have some fun 😁
 
-## Options
+### Options
 
 `options()` lets you set the global options for R. All of them have a default, and these are the ones I've changed for my preference. You can use `?options` to view the full list.
 
@@ -178,7 +206,7 @@ options(
 )
 ```
 
-## R Completion Options
+### R Completion Options
 
 The `rc.settings` function is part of the utils package in R, which configures settings for the R completion mechanism. It can enable or disable specific completion features like inter-package completion, function argument completion, and fuzzy matching. You can use `?rc.settings` to view the full list.
 
@@ -205,7 +233,7 @@ In short, the more help I can get coding, the better 😁
 rc.settings(ipck = TRUE, func = TRUE, fuzzy = TRUE)
 ```
 
-## Interactive Sessions
+### Interactive Sessions
 
 You can use this code section if you want things to enable in an interactive session, like auto-loading certain packages. Some people use it to load packages that they always use, like `tidyverse`, `usethis`, `devtools`, and so on, but I'm in the camp that every script should be very explicit in what packages are being used, so I use this feature to have some fun.
 
@@ -219,9 +247,9 @@ if (interactive()) {
 }
 ```
 
-# r.snippets & rstudio_bindings.json
+## r.snippets
 
-RStudio lets you add custom snippets (pieces of code that can be quickly inserted, useful for repetitive code) and key bindings that can really help your code flow if you use them. For both files, I only added one thing, but they've really improved my coding experience.
+RStudio lets you add custom snippets (pieces of code that can be quickly inserted, useful for repetitive code) and key bindings that can really help your code flow if you use them.
 
 ```{r filename="r.snippets"}
 #| label: my-custom-snippets
@@ -230,16 +258,98 @@ snippet user
   user = Sys.info()[['user']]
 ```
 
+## rstudio_bindings.json
+
+This may seem like a simple change, but I though it was weird that you have to press 3 keys for arguably the most important operator in R. Also mapping to the actual pipe key, `|`, made more sense to me. (Well yes it's technically mapping to `\` but having to hit `shift` would've removed half the reason of remapping in the first place.)
+
 ```{json filename="rstudio_bindings.json"}
 {
     "insertPipeOperator": "Ctrl+\\"
 }
 ```
 
+## addins.json
+
 RStudio uses a separate file for key bindings for addins, and the {rsthemes} package comes with a feature for toggling from light and dark modes, and a recommended key binding to follow:
 
 ```{json filename="addins.json"}
 {
     "rsthemes::use_theme_toggle": "Ctrl+Alt+D"
+}
+```
+
+## rstudio-prefs.json
+
+Last but not least, we have the file that began it all. `rstudio-prefs.json` holds all of your custom settings that you change in Tools > Global Options. Every time I had to setup RStudio on a new machine, I could never remember all the settings I liked, and I figured that there was a file somewhere which holds these settings that I could overwrite. That is exactly what this file is. These settings allow you to customize various aspects of the IDE, such as appearance, editor behavior, and default options for projects. 
+
+JSON files don't have a great way of adding in-line comments, but the settings names are pretty descriptive of what they do. Since this is the last section of the blog post, I have no shame printing all 67 lines 😈
+
+```{json filename="rstudio-prefs.json"}
+{
+    "restore_source_documents": false,
+    "wrap_tab_navigation": false,
+    "save_workspace": "never",
+    "load_workspace": false,
+    "initial_working_directory": "C:/Users/OzanO/Code",
+    "default_open_project_location": "C:/Users/OzanO/Code",
+    "always_save_history": false,
+    "restore_last_project": false,
+    "auto_detect_indentation": true,
+    "insert_native_pipe_operator": true,
+    "highlight_selected_line": true,
+    "scroll_past_end_of_document": true,
+    "highlight_r_function_calls": true,
+    "rainbow_parentheses": true,
+    "auto_append_newline": true,
+    "strip_trailing_whitespace": true,
+    "warn_if_no_such_variable_in_scope": true,
+    "warn_variable_defined_but_not_used": true,
+    "style_diagnostics": true,
+    "show_diagnostics_other": true,
+    "indent_guides": "gray",
+    "syntax_color_console": true,
+    "limit_visible_console": true,
+    "auto_expand_error_tracebacks": true,
+    "rmd_chunk_output_inline": false,
+    "show_rmd_render_command": true,
+    "rmd_viewer_type": "pane",
+    "pdf_previewer": "none",
+    "windows_terminal_shell": "win-ps",
+    "full_project_path_in_window_title": true,
+    "panes": {
+        "quadrants": [
+            "Source",
+            "TabSet1",
+            "Console",
+            "TabSet2"
+        ],
+        "tabSet1": [
+            "Environment",
+            "History",
+            "Connections",
+            "Build",
+            "VCS",
+            "Presentation"
+        ],
+        "tabSet2": [
+            "Files",
+            "Plots",
+            "Packages",
+            "Help",
+            "Viewer",
+            "Presentations"
+        ],
+        "hiddenTabSet": [
+            "Tutorial"
+        ],
+        "console_left_on_top": false,
+        "console_right_on_top": true,
+        "additional_source_columns": 0
+    },
+    "jobs_tab_visibility": "shown",
+    "code_completion_characters": 1,
+    "text_rendering": "geometricPrecision",
+    "editor_theme": "Elm dark {rsthemes}",
+    "margin_column": 96
 }
 ```

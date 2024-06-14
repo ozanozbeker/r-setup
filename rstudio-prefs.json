@@ -42,7 +42,6 @@
             "Connections",
             "Build",
             "VCS",
-            "Tutorial",
             "Presentation"
         ],
         "tabSet2": [
@@ -53,10 +52,16 @@
             "Viewer",
             "Presentations"
         ],
-        "hiddenTabSet": [],
+        "hiddenTabSet": [
+            "Tutorial"
+        ],
         "console_left_on_top": false,
         "console_right_on_top": true,
         "additional_source_columns": 0
     },
-    "jobs_tab_visibility": "shown"
+    "jobs_tab_visibility": "shown",
+    "code_completion_characters": 1,
+    "text_rendering": "geometricPrecision",
+    "editor_theme": "Elm dark {rsthemes}",
+    "margin_column": 96
 }
