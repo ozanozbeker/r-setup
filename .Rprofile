@@ -10,6 +10,7 @@ options(
   warnPartialMatchDollar = TRUE, # Warns if partial matching is used for extraction by $.
   prompt = 'R> ',                # This is complete personal preference
   continue = '+> ',              # This is complete personal preference
+  repos = c(CRAN = "https://packagemanager.posit.co/cran/latest"),
   rsthemes.theme_light = "Elm light {rsthemes}",
   rsthemes.theme_dark = "Elm dark {rsthemes}",
   rsthemes.theme_favorite = "Elm dark {rsthemes}"

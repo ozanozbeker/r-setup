@@ -1,18 +1,15 @@
 # Packages ----
 install.packages(c(
   # Meta Packages
-  'tidyverse',  # Easily Install and Load the "Tidyverse" packages | https://tidyverse.tidyverse.org
-  'tidymodels', # Easily Install and Load the "Tidymodels" packages | https://tidymodels.tidymodels.org/
+  'tidyverse',  # Easily Install and Load the "Tidyverse" packages
+  'tidymodels', # Easily Install and Load the "Tidymodels" packages
 
   # Programming & Development
-  'purrr',     # Functional Programming Tools | https://purrr.tidyverse.org/
-  'forcats',   # Tools for Working with Categorical Variables (Factors) | https://forcats.tidyverse.org/
-  'keyring',   # Package for accessing OS's credential store | https://keyring.r-lib.org/
-  'fs',        # Cross-Platform File System Operations Based on 'libuv' | https://fs.r-lib.org/
-  'renv',      # Project Environments | https://rstudio.github.io/renv/index.html
-  'pins',      # | https://pins.rstudio.com/
-  'plumber',   # | https://www.rplumber.io/
-  'vetiver',   # | https://rstudio.github.io/vetiver-r/index.html
+  'purrr',     # Functional Programming Tools
+  'forcats',   # Tools for Working with Categorical Variables (Factors)
+  'keyring',   # Package for accessing OS's credential store
+  'fs',        # Cross-Platform File System Operations Based on 'libuv' 
+  'renv',      # Project Environments
 
   # Import
   'readr',     # Read Rectangular Data | https://readr.tidyverse.org/
@@ -35,18 +32,6 @@ install.packages(c(
   'gt',        # Easily Create Presentation-Ready Display Tables | https://gt.rstudio.com/
   'skimr',     # Compart and Flexible Summaries of Data | https://docs.ropensci.org/skimr/
 
-  # Model
-  'rsample',   # General Re-sampling Infrastructure | https://rsample.tidymodels.org/
-  'parsnip',   # A Common API to Modeling and Analysis Functions | https://parsnip.tidymodels.org/
-  'recipes',   # Pre-processing and Feature Engineering Steps for Modeling | https://recipes.tidymodels.org/
-  'workflows', # Modeling Workflows | https://workflows.tidymodels.org/
-  'tune',      # Tidy Tuning Tools | https://tune.tidymodels.org/
-  'yardstick', # Tidy Characterizations of Model Performance | https://yardstick.tidymodels.org/
-  'broom',     # Convert Statistical Objects into Tidy Tibbles | https://broom.tidymodels.org/
-  'dials',     # Tools for Creating Tuning Parameter Values | https://dials.tidymodels.org/
-  'infer',     # Tidy Statistical Inference | https://infer.tidymodels.org/
-  'corrr',     # Correlations in R | https://corrr.tidymodels.org/
-
   # Communicate
   'quarto',    # R Interface to 'Quarto' Markdown Publishing System
 
@@ -65,14 +50,6 @@ install.packages(
 )
 
 rsthemes::install_rsthemes()
-
-# Other packages I'm interested in:
-# 'profvis'  # Interactive Visualizations for Profiling R Code | https://rstudio.github.io/profvis/
-# 'targets'  # Pipelining Tools in R | https://docs.ropensci.org/targets/
-# 'testthat' # Unit Testing for R | https://testthat.r-lib.org
-# 'usethis'  # Automate Package and Project Setup | https://usethis.r-lib.org/
-# 'devtools' # Tools to Make Developing R Packages Easier | https://devtools.r-lib.org/
-# 'zoo'      # S3 Infrastructure for Regular and Irregular Time Series (Z's Ordered Observations) | https://zoo.R-Forge.R-project.org/
 
 # RStudio Config ----
 purrr::walk(
