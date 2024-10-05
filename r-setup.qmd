@@ -1,0 +1,109 @@
+---
+title: "R Setup"
+format: html
+editor_options: 
+  chunk_output_type: console
+---
+
+::: callout-info
+I'm not sure where it first started, but when referencing different R packages, there is a common practice of wrapping the package name with {}, so for example, we will be using the packages {pak}, {usethis}, & {rsthemes} during this setup.
+:::
+
+## R Installation
+
+You can install the latest version of R from [CRAN](https://cran.rstudio.com/), or by using [rig](https://github.com/r-lib/rig), which is what I recommend. This CLI tool let's you easily install & manage multiple versions of R, easily install Rtools (if on Windows), as well as some other quality of life improvements answered in the [FAQ](https://github.com/r-lib/rig?tab=readme-ov-file#-faq-).
+
+### Installation with rig
+
+1.  Follow the instructions for your OS on the rig GitHub page to install.
+2.  In the terminal, install the latest version of R with `rig add release`.
+3.  Set the default R installations with `rig default release`.
+4.  Setup user library with `rig system setup-user-lib`. The rig FAQ discusses the benefit of this method.
+5.  Install {pak} with `rig system add-pak`, we will discuss what this does later.
+6.  **Windows Only**: install Rtools with `rig system rtools add`. Rtools is not something we use directly, but it's good to have. You can learn more about it [here](https://cran.r-project.org/bin/windows/Rtools/rtools44/rtools.html) if you would like.
+
+With R ready, we can now setup RStudio, which is the program/app that we will be using to interact with R.
+
+## RStudio Installation
+
+You can install RStudio from [Posit](https://posit.co/download/rstudio-desktop/)'s website. Posit is the company that makes RStudio and other packages & tools we'll cover later.
+
+When you first open RStudio, it will ask you which version of R you would like to use. You should only have one R installation, and using the system default option is fine.
+
+### Global Options with {usethis}
+
+RStudio has a bunch of options and integration with many services like GitHub. This section we will systematically set these up. The {usethis} package is full of different helper functions that will help us with this task.
+
+But first, we need to install {usethis}:
+
+```{r}
+pak::pkg_install("usethis")
+```
+
+#### Git & GitHub Integration
+
+These steps are very high level, more details can be found in the {usethis} [docs](https://usethis.r-lib.org/articles/git-credentials.html) & the fantastic book, [Happy Git and GitHub for the useR](https://happygitwithr.com/install-git.html)
+
+Install Git for your OS before continuing. Consult the book for assistance.
+
+Setup global gitignore file:
+
+```{r}
+usethis::git_vaccinate()
+```
+
+Create GitHub Token...
+
+```{r}
+usethis::create_github_token()
+```
+
+... and set in local Git credential store:
+
+```{r}
+gitcreds::gitcreds_set()
+```
+
+At this point, restart your R Session and check your Git/GitHub status:
+
+```{r}
+usethis::git_sitrep()
+```
+
+#### Configuration Files
+
+Between R & RStudio, there are a variety of files that control how things work both in the R code and the RStudio IDE. Most of these are opinionated, and these are the settings that I prefer. Each config file has a corresponding text file in this repo. Copy the contents of the repo files into your respective config files.
+
+-   **.Rprofile**: you can open your .Rprofile file with `edit_r_profile()`
+    -   You can learn more about the .Rprofile file [here](https://stat.ethz.ch/R-manual/R-patched/library/base/html/Startup.html), [here](https://rstats.wtf/r-startup.html#rprofile), and [here](http://kevinushey.github.io/blog/2015/02/02/rprofile-essentials/).
+-   **rstudio-prefs.json**: you can open your rstudio-prefs.json file with `edit_rstudio_prefs()`
+    -   Some of these preferences are taken from [*R for Data Science*](https://r4ds.hadley.nz/), which can be applied with `usethis::use_blank_slate()`.
+    -   Descriptions of the settings can be found [here](https://docs.posit.co/ide/server-pro/reference/session_user_settings.html).
+
+### Better UI with {rsthemes}
+
+This part is technically optional, but I consider it a big "quality of life" improvement. The built in themes with RStudio are, fine, but not great. This package bundles 35 themes that completely transforms the IDE. I'm a fan of the "Elm dark" and "Elm light" themes.
+
+Use this code block to install {rsthemes} package from GitHub, and then it's built in function to install the themes themselves.
+
+```{r}
+pak::pkg_install("gadenbuie/rsthemes")
+rsthemes::install_rsthemes()
+```
+
+The package's [website](https://www.garrickadenbuie.com/project/rsthemes/#usage) has great instructions on trying out the different themes and setting them as defaults. Pick your favorites and apply them. I'm a fan of the "Elm dark" and "Elm light" themes, so they are the ones I will be initializing. You only have to run this code once.
+
+```{r}
+rsthemes::set_theme_light("Elm light {rsthemes}")
+rsthemes::set_theme_dark("Elm dark {rsthemes}")
+```
+
+## Package Installation
+
+Last but not least, we will install all the packages that I use the most, or at least I am in the time I write this. This section will also highlight some of the cool features that comes from using {pak} instead of the base `install.packages()` function.
+
+### Installing Packages with {pak}
+
+```{r}
+pak::pak_install_extra()
+```

@@ -1,67 +1,31 @@
 {
     "restore_source_documents": false,
-    "wrap_tab_navigation": false,
+    "full_project_path_in_window_title": true,
     "save_workspace": "never",
     "load_workspace": false,
-    "initial_working_directory": "C:/Users/OzanO/Code",
-    "default_open_project_location": "C:/Users/OzanO/Code",
+    "initial_working_directory": "D:/",
+    "default_open_project_location": "D:/",
     "always_save_history": false,
     "restore_last_project": false,
+    "pdf_previewer": "none",
+    "windows_terminal_shell": "win-git-bash",
     "auto_detect_indentation": true,
     "insert_native_pipe_operator": true,
     "highlight_selected_line": true,
+    "margin_column": 120,
     "scroll_past_end_of_document": true,
+    "enable_text_drag": false,
     "highlight_r_function_calls": true,
     "rainbow_parentheses": true,
     "auto_append_newline": true,
     "strip_trailing_whitespace": true,
-    "warn_if_no_such_variable_in_scope": false,
+    "restore_source_document_cursor_position": false,
     "warn_variable_defined_but_not_used": true,
     "style_diagnostics": true,
     "show_diagnostics_other": true,
     "indent_guides": "gray",
+    "fold_style": "begin-only",
     "syntax_color_console": true,
-    "limit_visible_console": true,
     "auto_expand_error_tracebacks": true,
-    "rmd_chunk_output_inline": false,
-    "show_rmd_render_command": true,
-    "rmd_viewer_type": "pane",
-    "pdf_previewer": "none",
-    "windows_terminal_shell": "win-ps",
-    "full_project_path_in_window_title": true,
-    "panes": {
-        "quadrants": [
-            "Source",
-            "TabSet1",
-            "Console",
-            "TabSet2"
-        ],
-        "tabSet1": [
-            "Environment",
-            "History",
-            "Connections",
-            "Build",
-            "VCS",
-            "Presentation"
-        ],
-        "tabSet2": [
-            "Files",
-            "Plots",
-            "Packages",
-            "Help",
-            "Viewer",
-            "Presentations"
-        ],
-        "hiddenTabSet": [
-            "Tutorial"
-        ],
-        "console_left_on_top": false,
-        "console_right_on_top": true,
-        "additional_source_columns": 0
-    },
-    "jobs_tab_visibility": "shown",
-    "code_completion_characters": 1,
-    "text_rendering": "geometricPrecision",
-    "editor_theme": "Elm dark {rsthemes}",
-    "margin_column": 96
+    "editor_theme": "Elm dark {rsthemes}"
 }
