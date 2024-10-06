@@ -1,6 +1,5 @@
 # Note: I saved this as an R script so the syntax highlighting stays.
 # Having a .Rprofile file in the project directory takes precedence over the user
-# file, so opening this project would apply these settings, which isn't what we want.
 # Use usethis::edit_r_profile() to open the user .Rprofile file and copy the contents
 # below into it.
 
@@ -19,12 +18,14 @@ options(
 
   # {rsthemes}
   rsthemes.theme_light = "Elm light {rsthemes}",
-  rsthemes.theme_dark = "Elm dark {rsthemes}"
+  rsthemes.theme_dark = "Elm dark {rsthemes}",
 
+  # {renv}
+  renv.config.pak.enabled = TRUE
 )
 
 # R Completion Options ----
-rc.settings(
+utils::rc.settings(
   ipck = TRUE, # Enables completion of installed package names inside library() and require()
   func = TRUE, # Enables detection of functions. Might not work great on low end computers.
   fuzzy = TRUE # Enables fuzzy matching, where close but non-exact matches are considered if no exact matches are found

@@ -74,13 +74,13 @@ usethis::git_sitrep()
 
 Between R & RStudio, there are a variety of files that control how things work both in the R code and the RStudio IDE. Most of these are opinionated, and these are the settings that I prefer. Each config file has a corresponding text file in this repo. Copy the contents of the repo files into your respective config files.
 
--   **.Rprofile**: you can open your .Rprofile file with `edit_r_profile()`
+-   **.Rprofile**: you can open your user .Rprofile file with `edit_r_profile()`
     -   You can learn more about the .Rprofile file [here](https://stat.ethz.ch/R-manual/R-patched/library/base/html/Startup.html), [here](https://rstats.wtf/r-startup.html#rprofile), and [here](http://kevinushey.github.io/blog/2015/02/02/rprofile-essentials/).
--   **rstudio-prefs.json**: you can open your rstudio-prefs.json file with `edit_rstudio_prefs()`
+-   **rstudio-prefs.json**: you can open your user rstudio-prefs.json file with `edit_rstudio_prefs()`
     -   Some of these preferences are taken from [*R for Data Science*](https://r4ds.hadley.nz/), which can be applied with `usethis::use_blank_slate()`.
     -   Descriptions of the settings can be found [here](https://docs.posit.co/ide/server-pro/reference/session_user_settings.html).
 
-### Better UI with {rsthemes}
+### Better RStudio UI with {rsthemes}
 
 This part is technically optional, but I consider it a big "quality of life" improvement. The built in themes with RStudio are, fine, but not great. This package bundles 35 themes that completely transforms the IDE. I'm a fan of the "Elm dark" and "Elm light" themes.
 
@@ -100,10 +100,255 @@ rsthemes::set_theme_dark("Elm dark {rsthemes}")
 
 ## Package Installation
 
-Last but not least, we will install all the packages that I use the most, or at least I am in the time I write this. This section will also highlight some of the cool features that comes from using {pak} instead of the base `install.packages()` function.
+Last but not least, we will install all the packages that I use the most, or at least I am at the time I write this. This section will also highlight some of the cool features that come from using {pak} instead of the base `install.packages()` function.
 
 ### Installing Packages with {pak}
 
+The {pak} package offers faster and more reliable package installation compared to install.packages() because of parallel downloads & simplifies installing packages from various sources (CRAN, GitHub, custom repositories). You can see all the benefits [here](https://pak.r-lib.org/reference/get-started.html).
+
+### Finding Packages to Install
+
+A great source of finding high quality packages based on your programming needs is the [CRAN Task Views](https://cran.r-project.org/web/views/). These views give some guidance on which packages are relevant for tasks related to a certain topic, and are updated a few times a year.
+
+::: callout-note
+Many packages use others as dependencies, and these dependencies will be downloaded along with the requested package. That said, a lot of the dependency packages are also very useful themselves, {httr2} being a great example. Because of this, my list of packages below will include by name the packages I use often, whether they are an "end" package or dependency. This list is a mental map for me, and will grow over time. One tip I have is to look through the dependencies of the packages you use the most and see if there are tools that could be helpful for you.
+:::
+
+### Packages: Meta Packages
+
+These are collections that bundle multiple packages for convenience.
+
+::: callout-note
+Most of the packages loaded by these meta packages I have listed separately in the below sections. These meta-packages also have some helper functions that I am more interested in.
+:::
+
 ```{r}
-pak::pak_install_extra()
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "tidyverse", # Easily Install and Load the 'Tidyverse'
+    "tidymodels" # Easily Install and Load the 'Tidymodels' Packages
+  )
+)
+```
+
+### Packages: Development Tools and Workflow Automation
+
+These tools are essential for managing R projects, environments, and optimizing code.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "pak",     # Another Approach to Package Installation
+    "profvis", # Interactive Visualizations for Profiling R Code
+    "quarto",  # R Interface to 'Quarto' Markdown Publishing System
+    "renv",    # Project Environments
+    "usethis"  # Automate Package Development and Project Setup
+  )
+)
+
+pak::pak_install_extra(upgrade = TRUE)
+```
+
+### Packages: Functional Programming and Utilities
+
+Tools to enhance programming capabilities and interaction with the system or external services.
+
+#### Functional Programming
+
+Focuses on enhancing functional programming & parallel computing.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "furrr",  # Apply Mapping Functions in Parallel using Futures
+    "future", # Unified Parallel and Distributed Processing in R for Everyone
+    "purrr"   # Functional Programming Tools
+  )
+)
+```
+
+#### Utilities and System Interaction
+
+These packages interact with the file system, credential stores, AWS services, and resource management.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "fs",      # Cross-Platform File System Operations Base on 'libuv'
+    "keyring", # Access the System Credential Store from R
+    "paws",    # Amazon Web Services Software Development Kit
+    "pins"     # Pin, Discover and Share Resources
+  )
+)
+```
+
+### Packages: Data Access and Import
+
+These packages aid in the importing and extraction of data from various files types & databases.
+
+#### Data Import and Export
+
+These packages handle data from various file formats.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "jsonlite",  # A Simple and Robust JSON parser and Generator for R
+    "readr",     # Read Rectangular Text Data
+    "readxl",    # Read Excel Files
+    "xml2"       # Parse XML
+  )
+)
+```
+
+#### Database and Web Data Access
+
+These packages facilitate connections to databases and web data sources.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "DBI",       # R Database Interface
+    "dbplyr",    # A 'dplyr' Back End for Databases
+    "duckdb",    # DBI Package for the DuckDB Database Management System
+    "httr2",     # Perform HTTP Requests and Process the Responses
+    "odbc",      # Connect to ODBC Compatible Databases (using the DBI Interface)
+    "RPostgres", # C++ Interface to PostgreSQL
+    "rvest"      # Easily Harvest (Scrape) Web Page
+  )
+)
+```
+
+### Packages: Data Wrangling, Transformation, & Validation
+
+These packages aid in the wrangling and transformation of data. These also include packages that aid in data validation and quality assurance.
+
+You can learn about tidy data principles [here](https://r4ds.hadley.nz/data-tidy.html).
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "dplyr",     # A Grammar of Data Manipulation
+    "duckplyr",  # A 'DuckDB'-Backed Version of 'dplyr'
+    "forcats",   # Tools for Working with Categorical Variables (Factors)
+    "janitor",   # Simple Tools for Examining and Cleaning Dirty Data
+    "lubridate", # Make Dealing with Dates a Little Easier
+    "tibble",    # Simple Data Frames
+    "tidyr",     # Tidy Messy Data
+    "skimr",     # Compact and Flexible Summaries of Data
+    "stringr"    # Simple, Consistent Wrappers for Common String Operations
+  )
+)
+```
+
+### Packages: Visualizations
+
+These packages aid in creating high quality visualizations & tables.
+
+#### Static
+
+These packages specialize in static reports for print or email.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "ggplot2", # The Grammar of Graphics
+    "gt"       # Easily Create Presentation-Ready Display Tables
+  )
+)
+```
+
+#### Reactive
+
+These packages specialize in interactive reports (HTML), dashboards (Quarto/Shiny), or websites.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "bslib",     # Custom 'Bootstrap' 'Sass' Themes for 'shiny' and 'rmarkdown'
+    "mapgl",     # Interactive Maps with 'Mapbox GL JS' and 'MapLibre GL JS' in R
+    "plotly",    # Create Interactive Web Graphics via 'plotly.js'
+    "reactable", # Interactive Data Tables for R
+    "shiny"      # Web Application Framework for R
+  )
+)
+```
+
+### Packages: Statistical Modeling & Machine Learning
+
+These packages aid in creating statistical and machine learning models across a range of methods, including regression, classification, and more.
+
+#### Modeling Framework
+
+Core tidymodels packages for model development and tuning.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "dials",    # Tools for Creating Tuning Parameter Values
+    "parsnip",  # A Common API to Modeling and Analysis Functions
+    "recipes",  # Preprocessing and Feature Engineering Steps for Modeling
+    "rsample",  # General Resampling Infrastructure
+    "tune",     # Tidy Tuning Tools
+    "workflows" # Modeling Workflows
+  )
+)
+```
+
+#### Model Interpretations and Evaluation
+
+Tools for interpreting models and assessing performance.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "broom",     # Convert Statistical Objects into Tidy Tibbles
+    "corrr",     # Correlations in R
+    "infer",     # Tidy Statistical Inference
+    "stacks",    # Tidy Model Stacking
+    "yardstick"  # Tidy Characterizations of Model Performance
+  )
+)
+```
+
+#### Modeling Engines
+
+Specific algorithms and engines used within the modeling framework. These are the "engines" used with the {parsnip} package.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "glmnet",  # Lasso and Elastic-Net Regularized Generalized Linear Models
+    "ranger",  # A Fast Implementation of Random Forests
+    "xgboost", # Extreme Gradient Boosting
+    "kernlab"  # Support Vector Machines and Other Kernel-Based Models
+  )
+)
+```
+
+### Packages: Time Series Analysis
+
+Specialized tools for time series data structures and forecasting.
+
+```{r}
+pak::pkg_install(
+  upgrade = TRUE,
+  pkg = c(
+    "fable",  # Forecasting Models for Tidy Time Series
+    "feasts", # Feature Extraction and Statistics for Time Series
+    "tsibble" # Tidy Temporal Data Frames and Tools
+  )
+)
 ```
