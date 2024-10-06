@@ -104,7 +104,7 @@ Last but not least, we will install all the packages that I use the most, or at 
 
 ### Installing Packages with {pak}
 
-The {pak} package offers faster and more reliable package installation compared to install.packages() because of parallel downloads & simplifies installing packages from various sources (CRAN, GitHub, custom repositories). You can see all the benefits [here](https://pak.r-lib.org/reference/get-started.html).
+The {pak} package offers faster and more reliable package installation compared to `install.packages()` because of parallel downloads & simplifies installing packages from various sources (CRAN, GitHub, custom repositories). You can see all the benefits [here](https://pak.r-lib.org/reference/get-started.html).
 
 ### Finding Packages to Install
 
